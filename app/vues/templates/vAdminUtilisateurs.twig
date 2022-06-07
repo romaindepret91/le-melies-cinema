@@ -1,0 +1,27 @@
+<script>history.pushState({}, '', 'admin?entite=utilisateur')</script>
+<section>
+  <h1>{{ titre|upper }}</h1>
+  <a href="admin?entite=utilisateur&action=a">Ajouter un utilisateur</a>
+  <p class="messageRetourAction {{ classRetour }}">{{ messageRetourAction }}&nbsp;</p>   
+  <div class="g utilisateurs">
+    <div class="t">Id</div>
+    <div class="t">Nom, Prénom</div>
+    <div class="t">Courriel</div>
+    <div class="t">Profil</div>
+    <div class="t">Actions</div>
+  {% for utilisateur in utilisateurs %}
+    <div class="l">
+      <div class="c dr">{{ utilisateur.utilisateur_id }}</div>
+      <div class="c   ">{{ utilisateur.utilisateur_prenom }} {{ utilisateur.utilisateur_nom }}</div>
+      <div class="c   ">{{ utilisateur.utilisateur_courriel }}</div>
+      <div class="c   ">{{ utilisateur.utilisateur_profil }}</div>
+      <div class="c   ">
+        <a href="admin?entite=utilisateur&action=m&utilisateur_id={{ utilisateur.utilisateur_id }}">modifier</a>
+        <a class="confirmer" data-href="admin?entite=utilisateur&action=s&utilisateur_id={{ utilisateur.utilisateur_id }}">supprimer</a>
+        <a href="admin?entite=utilisateur&action=generer_mdp&utilisateur_id={{ utilisateur.utilisateur_id }}">générer mdp</a>
+      </div>
+    </div>
+  {% endfor %} 
+  </div>
+</section>
+{{ include("modaleSuppression.twig") }}
