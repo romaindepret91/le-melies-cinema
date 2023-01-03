@@ -19,8 +19,6 @@ class Routeur {
 
   protected $oRequetesSQL; // objet RequetesSQL utilisé par tous les contrôleurs
 
-  const BASE_URI = "/PHP_session3/TP3/TP3/"; // chemin du dossier racine pour le serveur lancé par VS Code, "\/31B\/TP2\/" par exemple si le dossier racine de l'application est /31B/TP2/ (sous htdocs de XAMPP) \/PHP_session3\/TP3\/TP3\/
-
   const ERROR_NOT_FOUND  = "HTTP 404";
   const ERROR_FORBIDDEN  = "HTTP 403";
   
@@ -31,13 +29,14 @@ class Routeur {
    */
   public function __construct() {
     try {
-
+      $baseUri = substr($_SERVER['PHP_SELF'], 0, -9);
+      
       $uri =  $_SERVER['REQUEST_URI'];
       if (strpos($uri, '?')) $uri = strstr($uri, '?', true);
 
       foreach ($this->routes as $route) {
 
-        $routeUri     = self::BASE_URI.$route[0];
+        $routeUri     = $baseUri.$route[0];
         $routeClasse  = $route[1];
         $routeMethode = $route[2];
         
